@@ -1,0 +1,13 @@
+<?php
+header("refresh:1");
+function dodaj_zero($wartosc)
+{
+    if($wartosc<10)return '0'.$wartosc;
+    else return $wartosc;
+}
+$data = getdate();
+$dni_tygodnia = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+echo 'Dziś jest ';
+echo $dni_tygodnia[$data['wday']];
+echo '.'
+?>
