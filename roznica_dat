@@ -1,0 +1,12 @@
+<?php
+$data = "RRRR-MM-DD";
+$obecna_data = date("Y-m-d");
+$pozostalo = (strtotime($data) - strtotime($obecna_data)) / (60*60*24);
+echo "Pozostało ".$pozostalo." dni do zakończenia roku szkolnego".'('.$data .') ';
+
+$data_start = "RRRR-MM-DD";
+$pozostalo2 = (strtotime($obecna_data) - strtotime($data_start)) / (60*60*24);
+echo '<br/>'." Upłyneło już " .$pozostalo2 ." dni "
+
+?>
+
