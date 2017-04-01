@@ -1,0 +1,25 @@
+<?php
+header("refresh:1");
+
+function dodaj_zero($wartosc)
+{
+    if($wartosc<10)return '0'.$wartosc;
+    else return $wartosc;
+}
+
+$data = getdate();
+$miesiace = [' ','Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpeień','Wrzesień','Październik','Listopad','Grudzeiń'];
+
+echo 'Aktualna data to:  ';
+echo dodaj_zero($dzien=$data['mday']);
+echo "  ";
+echo $miesiace[$data['wday']];
+echo "  ";
+echo $rok=$data['year'];
+echo "   Godzina  ";
+echo dodaj_zero($godzina=$data['hours']);
+echo ":";
+echo dodaj_zero($minuta=$data['minutes']);
+echo ":";
+echo dodaj_zero($sekunda=$data['seconds'])
+?>
