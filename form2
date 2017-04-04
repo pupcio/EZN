@@ -1,105 +1,179 @@
 <!DOCTYPE html>
 <html>
-        <head>
-                <title>Formularz logowania</title>
-                <meta charset="utf-8">
-                <style>
-                        .main {
-                                width:80%;
-                                border:2px solid red;
-                                margin:auto auto;
-                                padding:20px;
-                        }
-                        label {
-                                padding: 10px;
-                                display:block;
-                                overflow:auto;
-                        }
-                        label input {
-                                float: right;
-                        }
-                        
-                        .center {
-                                display:block;
-                                margin: auto auto;
-                        }
-                        
-                </style>
-        </head>
+<head>
+	<title>Formularz logowania</title>
+	<meta charset="utf-8">
 
-        <body>
-                <div class="main">        
-        <?php
-                $login = isset($_GET['login']) ? $_GET['login'] : NULL;
-                $haslo = isset($_GET['haslo']) ? $_GET['haslo'] : NULL;
-                $kolor = isset($_GET['kolor']) ? $_GET['kolor'] : NULL;
+	<style>
+	body
+	{
+		margin:0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height:100vh;
+		font-weight: bold;
+		text-align:center;
+		/*background-color: gray;*/
+	}
+	form
+	{
+		width: 500px;
+		text-align: center;
+		border:2px solid brown;
+		padding:20px 0px;
+		box-shadow: 0px 0px 20px 2px black;
+		border-top-left-radius: 5%;
+		border-top-right-radius: 5%;
+		border-bottom-left-radius: 5%;
+		border-bottom-right-radius: 5%;
+	}
+	input
+	{
+		margin: 10px;
+	}
+	input[type="submit"] 
+	{
+		border:none;
+		padding:10px;
+		background-color: #00bfb3;
+		font-size: 16px;
+		cursor:pointer;
+		transition: .25s;
+		border-top-left-radius: 5%;
+		border-top-right-radius: 5%;
+		border-bottom-left-radius: 5%;
+		border-bottom-right-radius: 5%;
+	}	
+	input[type="text"],input[type="password"],input[type="email"], input[type="date"] 
+	{
+		padding:10px;
+		border-top-left-radius: 5%;
+		border-top-right-radius: 5%;
+		border-bottom-left-radius: 5%;
+		border-bottom-right-radius: 5%;
+	}
+	input[type="button"]:hover
+	{
+		background-color: #174c53;
+	}
+	div
+	{
+		background-color: white;
+		font-size: 16px;
+		font-family: arial;
+	}
+	img
+	{
+		width: 70px;
+		height: 40px;
+		padding: 10px;
+	}
+	</style>
+</head>
 
-        
-                if(czy_przekazane_dane_sa_ok($login,$haslo)) {
-                        powitaj_uzytkownika($login, $kolor);
-                }
-                else {
-                        wyswietl_formularz();
-                }
-        
-                function wyswietl_formularz() {
-                        
-                        $formularz = <<<HEREDOC
-                                        <form method="GET" action="#">
-                                <label>
-                                Wpisz swój login
-                                        <input placeholder="Login" type="text" name="login"/>
-                                </label>
-                                <label>
-                                        Wpisz swoje hasło
-                                        <input placeholder="Haslo" type="password" name="haslo"/>
-                                </label>
-                                <label>
-                                        Wybierz ulubiony kolor
-                                        <input type="color" name="kolor"/>
-                                </label>
-                                <label>
-                                        Zgoda marketingowa
-                                        <input type="checkbox" name="zgoda_marketingowa"/>
-                                </label>
-                                <label>
-                                        Znajomość angielskiego
-                                        <input type="checkbox" name="jezyki[]"
-                                        value="en"
-                                        />
-                                </label>
-                                <label>
-                                        Znajomość niemieckiego
-                                        <input type="checkbox" name="jezyki[]"
-                                        value="de" />
-                                </label>
-                                <label>
-                                        Znajomość czeskiego
-                                        <input type="checkbox" name="jezyki[]"
-                                        value="cz"
-                                        />
-                                </label>
+	<body>
+		<div class="main">	
+	<?php
+		$login = isset($_GET['login']) ? $_GET['login'] : NULL;
+		$haslo = isset($_GET['haslo']) ? $_GET['haslo'] : NULL;
+		$kolor = isset($_GET['kolor']) ? $_GET['kolor'] : NULL;
+		$email = isset($_GET['email']) ? $_GET['email'] : NULL;
+		$datau = isset($_GET['datau']) ? $_GET['datau'] : NULL;
+		$_REQUEST['jezyki'] = isset($_GET['jezyki']) ? $_GET['jezyki'] : NULL;
 
-                                <input class=center type="submit" value="Zaloguj się"/>
-                        </form>
+		if(czy_przekazane_dane_sa_ok($login, $haslo, $email, $datau)) 
+		{
+		if (empty($login && $haslo && $email && $datau)) //wymagane zmienne
+		{
+		echo '<p style="color:red; font-size:30px;"> Dane nie są pełne! <br/> Wypełnij wszystkie dane aby przejść dalej! </p>';
+		}
+		else
+			powitaj_uzytkownika($login, $kolor, $datau, $email);
+		}
+		else 
+		{
+			wyswietl_formularz();
+		}
+		function wyswietl_formularz() 
+		{
+		$formularz = <<<HEREDOC
+		<form method="GET" action="#">
+		<label for="login">Login:</label>
+        	<input type="text" id="login" name="login" placeholder="Wpisz swój login"><br/>
+        	<label for="haslo">Hasło:</label>
+       		<input type="password" id="haslo" name="haslo" placeholder="Wpisz swoje hasło"><br/>
+		<label for="email">e-mail:</label>
+        	<input type="email" id="email" name="email" placeholder="Wpisz swój e-mail"><br/>
+		<label for="data">Data urodzenia:</label>
+		<input type="date" id="datau" name="datau"><br/>
+		<label for="color">Wybierz ulubiony kolor:</label> <input type="color" name="kolor"/></label><br/>
+		<label>
+			Znajomość angielskiego
+			<input type="checkbox" name="jezyki[]"
+			value="en"
+			/><br/>
+		</label>
+		<label>
+			Znajomość niemieckiego
+			<input type="checkbox" name="jezyki[]"
+			value="de"
+			/><br/>
+		</label>
+		<label>
+			Znajomość czeskiego
+			<input type="checkbox" name="jezyki[]"
+			value="cz"
+			/><br/>
+		</label>
+			<input class=center type="submit" value="Zaloguj się"/>
+			</form>
 HEREDOC;
-                echo $formularz;
-        }
-                function powitaj_uzytkownika($login, $kolor) {
-                        print_r($_GET);
-                        echo "<div style=color:".$kolor.">";
-                        echo "Witaj ".$login;        
-                        echo "</div>";
-                        
-                }
-                function czy_przekazane_dane_sa_ok($login, $haslo) {
-                        return isset($login) && isset($haslo);
-                }
-        ?>
-        </div>
+		echo $formularz;
+		}
+		function powitaj_uzytkownika($login, $kolor, $datau, $email) 
+		{
+			echo "<div style=color:".$kolor.">";
+			echo " Witaj ".$login."<br/>";
+			echo "Miło nam, że poprawnie wypełnileś formularz <br/>";
+			echo "Logujesz się z adresu e-mail : ".$email."<br/>";
+			$obecna_data = date("Y-m-d"); //obliczanie daty
+			$pozostalo = (strtotime($obecna_data) - strtotime($datau)) / (31556926);
+			$pozostalo = $pozostalo % (31556926);
+			echo "Masz ".$pozostalo." Lat ";
+			echo "<br/> Znasz język <br/>";	
 
-        </body>
-        
-        
-        
+				if (in_array("cz", $_REQUEST['jezyki'])) //czy jest flaga czeska
+				{
+				echo "<center><img src=cz.png></center>";
+				} 
+				else 
+				{
+					if (in_array("de", $_REQUEST['jezyki'])) //czy jest flaa niemiec
+					{
+						echo "<center><img src=de.png></center>";
+					}
+					else
+					{
+						if (in_array("en", $_REQUEST['jezyki']))//czy jest flaa anglii
+						{
+							echo "<center><img src=en.png></center>";
+						}
+						else 
+						{
+							echo "nie ma flag";
+						}
+					}
+				}
+			echo "</div>";
+
+		}
+		function czy_przekazane_dane_sa_ok($login,$haslo,$email,$datau) 
+		{
+		return isset($login) && isset($haslo) &&  isset($email) &&  isset($datau) && $_REQUEST['jezyki']; 
+		}
+	?>
+	</div>
+
+	</body>
 </html>
