@@ -15,6 +15,7 @@
 		font-weight: bold;
 		text-align:center;
 		line-height: 23px;
+		
 		/*background: linear-gradient(to top, #d3d8e8 0%, white 100%)*/
 	}
 	form
@@ -68,6 +69,7 @@
 		box-shadow: 0px 0px 20px 2px black;
 		border-radius: 5%;
 		font-family: Arial;
+
 	}
 	img
 	{
@@ -91,7 +93,7 @@
 		{
 		if (empty($login && $haslo && $email && $datau)) //wymagane zmienne
 		{
-		echo '<p style="color:red; font-size:30px;"> Dane nie są pełne! <br/> Wypełnij wszystkie dane aby przejść dalej! </p>';
+		echo '<p style="color:red; font-size:30px; line-height: 45px;"> Dane nie są pełne! <br/> Wypełnij wszystkie dane aby przejść dalej! </p>';
 		}
 		else
 			powitaj_uzytkownika($login, $kolor, $datau, $email, $jezyki);
@@ -150,8 +152,8 @@ HEREDOC;
         }
 		function powitaj_uzytkownika($login, $kolor, $datau, $email, $jezyki) 
 		{
-			echo "<div style=color:".$kolor.">";
-			echo "<br/><br/> Witaj ".$login."<br/>";
+			echo "<div class=nazwa  style=color:".$kolor.">";
+			echo "<br/> Witaj ".$login."<br/>";
 			echo "Miło nam, że poprawnie wypełnileś formularz <br/>";
 			echo "Logujesz się z adresu e-mail : ".$email."<br/>";
 			$obecna_data = date("Y-m-d"); //obliczanie daty
