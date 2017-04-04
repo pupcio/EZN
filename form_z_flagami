@@ -14,7 +14,8 @@
 		height:100vh;
 		font-weight: bold;
 		text-align:center;
-		/*background-color: gray;*/
+		line-height: 23px;
+		/*background: linear-gradient(to top, #d3d8e8 0%, white 100%)*/
 	}
 	form
 	{
@@ -59,19 +60,23 @@
 	}
 	div
 	{
-		background-color: white;
-		font-size: 16px;
-		font-family: arial;
+		width: 500px;
+		height: 300px;
+		text-align: center;
+		border:2px solid brown;
+		/*padding:20px 0px;*/
+		box-shadow: 0px 0px 20px 2px black;
+		border-radius: 5%;
+		font-family: Arial;
 	}
 	img
 	{
 		width: 70px;
 		height: 40px;
-		padding: 10px;
+		padding: 30px;
 	}
 	</style>
 </head>
-
 	<body>
 		<div class="main">	
 	<?php
@@ -131,7 +136,6 @@
 HEREDOC;
 		echo $formularz;
 		}
-
 		function flagi($jezyki)
         {
             $flagi = array(
@@ -144,28 +148,25 @@ HEREDOC;
                 echo $flagi[$jezyk];
             }
         }
-
 		function powitaj_uzytkownika($login, $kolor, $datau, $email, $jezyki) 
 		{
 			echo "<div style=color:".$kolor.">";
-			echo " Witaj ".$login."<br/>";
+			echo "<br/><br/> Witaj ".$login."<br/>";
 			echo "Miło nam, że poprawnie wypełnileś formularz <br/>";
 			echo "Logujesz się z adresu e-mail : ".$email."<br/>";
 			$obecna_data = date("Y-m-d"); //obliczanie daty
 			$pozostalo = (strtotime($obecna_data) - strtotime($datau)) / (31556926);
 			$pozostalo = $pozostalo % (31556926);
 			echo "Masz ".$pozostalo." Lat ";
-			echo "<br/> Znasz język <br/>";	
+			echo "<br/> Znasz język/i <br/>";	
 			echo ($jezyki) ? flagi($jezyki) : "Nie znasz języków";
 			echo "</div>";
-
 		}
 		function czy_przekazane_dane_sa_ok($login,$haslo,$email,$datau) 
 		{
-		return isset($login) && isset($haslo) &&  isset($email) &&  isset($datau) && $_REQUEST['jezyki']; 
+		return isset($login) && isset($haslo) &&  isset($email) &&  isset($datau) && isset($_REQUEST['jezyki']); 
 		}
 	?>
 	</div>
-
 	</body>
 </html>
