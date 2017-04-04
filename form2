@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Formularz logowania</title>
+                <meta charset="utf-8">
+                <style>
+                        .main {
+                                width:80%;
+                                border:2px solid red;
+                                margin:auto auto;
+                                padding:20px;
+                        }
+                        label {
+                                padding: 10px;
+                                display:block;
+                                overflow:auto;
+                        }
+                        label input {
+                                float: right;
+                        }
+                        
+                        .center {
+                                display:block;
+                                margin: auto auto;
+                        }
+                        
+                </style>
+        </head>
+
+        <body>
+                <div class="main">        
+        <?php
+                $login = isset($_GET['login']) ? $_GET['login'] : NULL;
+                $haslo = isset($_GET['haslo']) ? $_GET['haslo'] : NULL;
+                $kolor = isset($_GET['kolor']) ? $_GET['kolor'] : NULL;
+
+        
+                if(czy_przekazane_dane_sa_ok($login,$haslo)) {
+                        powitaj_uzytkownika($login, $kolor);
+                }
+                else {
+                        wyswietl_formularz();
+                }
+        
+                function wyswietl_formularz() {
+                        
+                        $formularz = <<<HEREDOC
+                                        <form method="GET" action="#">
+                                <label>
+                                Wpisz swój login
+                                        <input placeholder="Login" type="text" name="login"/>
+                                </label>
+                                <label>
+                                        Wpisz swoje hasło
+                                        <input placeholder="Haslo" type="password" name="haslo"/>
+                                </label>
+                                <label>
+                                        Wybierz ulubiony kolor
+                                        <input type="color" name="kolor"/>
+                                </label>
+                                <label>
+                                        Zgoda marketingowa
+                                        <input type="checkbox" name="zgoda_marketingowa"/>
+                                </label>
+                                <label>
+                                        Znajomość angielskiego
+                                        <input type="checkbox" name="jezyki[]"
+                                        value="en"
+                                        />
+                                </label>
+                                <label>
+                                        Znajomość niemieckiego
+                                        <input type="checkbox" name="jezyki[]"
+                                        value="de" />
+                                </label>
+                                <label>
+                                        Znajomość czeskiego
+                                        <input type="checkbox" name="jezyki[]"
+                                        value="cz"
+                                        />
+                                </label>
+
+                                <input class=center type="submit" value="Zaloguj się"/>
+                        </form>
+HEREDOC;
+                echo $formularz;
+        }
+                function powitaj_uzytkownika($login, $kolor) {
+                        print_r($_GET);
+                        echo "<div style=color:".$kolor.">";
+                        echo "Witaj ".$login;        
+                        echo "</div>";
+                        
+                }
+                function czy_przekazane_dane_sa_ok($login, $haslo) {
+                        return isset($login) && isset($haslo);
+                }
+        ?>
+        </div>
+
+        </body>
+        
+        
+        
+</html>
