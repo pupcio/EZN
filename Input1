@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Formularz logowania</title>
+                <meta charset="utf-8">
+
+                <style>
+                        .qBox {
+                                margin: auto auto;
+                                width:80%;
+                                border:solid 2px #99b433;
+                                color: white;
+                                font-size:16pt;
+                                color: black;
+                                text-align:center;
+                        }
+                        form {
+                                text-align:left;
+                                border: 2px solid #1e7145;
+                                background-color: #00a300;
+                        }
+                        label {
+                                padding:20px;
+                                display:block;
+                        }
+                        label input {
+                                display:inline-block;
+                                margin-left:20px;
+                        }
+                        label span {
+                                padding:20px;
+                        }
+                        
+                        .center {
+                                display:block;
+                                margin: auto auto;
+                                margin-bottom:20px;
+                        }
+                        .DOBRZE {
+                                color: green;
+                        }
+                        .ZLE {
+                                color: red;
+                        }
+                        table {
+                                width:80%;
+                                margin:auto auto;
+                        }
+                </style>
+
+        </head>
+        <body>
+        <?php
+$pytania =<<<PYTANIE1
+                <div class="qBox">
+                        
+                        <form action="#" method="GET">
+    
+                                <p class="q">Kto jest autorem "Pana Tadeusza"?</p>
+                                <label>
+                                        <input type=radio name="q1" value="0"><span>Adam Mickiewicz</span></input>
+                                </label>
+                                <label>
+                                        <input type=radio name="q1" value="1"/><span>Piotr Kowalski</span></input>
+                                </label>
+                                <label>
+                                        <input type=radio name="q1" value="2"/><span>Adam Nowak<span></input>
+                                </label>
+                            <p class="q">Tak?</p>
+                                <label>
+                                        <input type=radio name="q2" value="0"><span>Nie</span></input>
+                                </label>
+                                <label>
+                                        <input type=radio name="q2" value="1"/><span>Może</span></input>
+                                </label>
+                                <label>
+                                        <input type=radio name="q2" value="2"/><span>Tak<span></input>
+                                </label>
+                                <input class="center" type="submit" value="Wyslij"/>
+                        </form>
+                </div>
+PYTANIE1;
+        
+        $wybranaOpcja1 = isset($_GET['q1']) ? $_GET['q1'] : null;
+        $wybranaOpcja2 = isset($_GET['q2']) ? $_GET['q2'] : null;
+        if($wybranaOpcja1 == null && $wybranaOpcja2 == null) {
+                echo $pytania;
+        }
+        else {
+                wyswietlWyniki($wybranaOpcja1, $wybranaOpcja2);
+                
+        }
+        
+        
+        function wyswietlWyniki($pytanie1, $pytanie2) {
+                $pyt1 = $pytanie1 == 0 ? "DOBRZE" : "ZLE";
+                $pyt2 = $pytanie2 == 2 ? "DOBRZE" : "ZLE";
+                
+                $odpowiedzi = <<<ODPOWIEDZI
+                <h5>Wyniki quizu</h5>
+                <table border=1>
+                        <tr>
+                        <td>Pytanie</td>
+                        <td>Wynik</td>
+
+                        </tr>
+                        <tr>
+                                <td>Kto jest autorem Pana Tadeusza?</td>
+                                <td class=$pyt1>$pyt1</td>
+                        </tr>
+                        <tr>
+                                <td>Tak?</td>
+                                <td class=$pyt2>$pyt2</td>
+                        </tr>
+                </table>
+ODPOWIEDZI;
+        echo $odpowiedzi;
+        }
+?>
+
+        </body>
+        
+        
+        
+</html>
+
+<?php
+
+
+?>
