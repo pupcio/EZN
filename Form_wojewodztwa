@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formularz logowania</title>
+        <meta charset="utf-8">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body
+            {
+                margin: 10%;
+                background-color: #474e5d; 
+                color: #000;
+            }
+            .main {
+                width:60%;
+                border:2px solid #fff;
+                margin:auto auto;
+                padding:20px;
+                border-radius: 10px;
+            }
+            
+            .center {
+                display:block;
+                margin: auto auto;
+            }
+            img
+            {
+                height:  120px;
+                width: 120px;
+            }
+            #herb
+            {
+                min-height: 150px;
+            }
+            h2, h3
+            {
+                color: #FFF;
+                font-weight: 600;
+                text-align: center;
+            }
+            p
+            {
+                color: #FFF;
+                text-align: justify;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+        <h2>Wybierz miasto i naciśnij wyszukaj</h2>
+            <form method="GET" action="#">
+                <center> <select size=1 name="miasto"> 
+                    <?php
+                        echo wyswietl_option_z_miastem();
+                    ?>
+                </select> </center>
+                <br/>
+                <input type=submit  class="btn btn-default btn-block" value="Wyszukaj"/>
+            </form>        
+    </div>
+        <?php
+            if(isset($_GET['miasto'])) {
+                wyswietl_informacje();
+            }
+        ?>
+    <?php
+        function wyswietl_option_z_miastem() 
+        {
+
+            $miasta = ["Wrocław", "Wałbrzych","Legnica","Jelenia Góra", "Lubin", "Głogów", "Świdnica","Bolesławiec","Oleśnica","Dzierżoniów"];
+            sort($miasta);
+            foreach($miasta as $miasto) 
+            {
+                $wynik = "<option>$miasto</option>";
+                echo $wynik;
+            }
+        }
+        
+        function wyswietl_informacje() 
+        {
+	        $miasto = $_GET['miasto'];
+	        echo '<div class="main" style="margin-top:20px">';
+	        echo '<h3>Miasto '.$miasto.'</h3>';
+
+                if ($miasto == 'Wrocław') 
+                {
+                  echo '<div id="herb"> <img class="img-rounded" src="herb/DW.png" style="float:right; margin-left:20px "/> <br/> <p> Wrocław – miasto na prawach powiatu w południowo-zachodniej Polsce, siedziba władz województwa dolnośląskiego i powiatu wrocławskiego. </p> </div>';
+                }elseif ($miasto == 'Wałbrzych') 
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/WA.png" style="float:right; margin-left:20px "/> <br/> <p> Wałbrzych – miasto na prawach powiatu na południowym zachodzie Polski, w województwie dolnośląskim. Miasto leży na Pogórzu Zachodniosudeckim i Sudetach Środkowych w pasmie Gór Wałbrzyskich, nad rzeką Pełcznicą, historycznie na Dolnym Śląsku.</p> </div>';
+                }elseif ($miasto == 'Legnica') 
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/LE.png" style="float:right; margin-left:20px "/> <br/> <p> Legnica – miasto na prawach powiatu w Polsce, w środkowej części województwa dolnośląskiego, na równinie legnickiej, położone nad rzekami: Kaczawą i wpadającą do niej Czarną Wodą.</p> </div>';
+                }elseif ($miasto == 'Jelenia Góra') 
+                {
+                   echo '<div id="herb"> <img class="img-rounded" src="herb/JG.png" style="float:right; margin-left:20px "/> <br/> <p> Jelenia Góra – miasto na prawach powiatu w południowo-zachodniej Polsce, w województwie dolnośląskim, w śródgórskiej Kotlinie Jeleniogórskiej, nad rzeką Bóbr.</p> </div>';
+                }elseif ($miasto == 'Lubin')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/LU.png" style="float:right; margin-left:20px "/> <br/> <p> Lubin – miasto w południowo-zachodniej Polsce, na Dolnym Śląsku, w województwie dolnośląskim, siedziba powiatu lubińskiego i gminy wiejskiej Lubin. Leży na Wysoczyźnie Lubińskiej, nad rzeką Zimnicą.</p> </div>';
+                } elseif ($miasto == 'Głogów')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/GL.png" style="float:right; margin-left:20px "/> <br/> <p> Głogów – miasto w zachodniej Polsce, w województwie dolnośląskim, położone na Dolnym Śląsku, siedziba powiatu głogowskiego oraz gminy wiejskiej Głogów. Umiejscowione nad rzeką Odrą. Głogów jest szóstym co do wielkości miastem w województwie.</p> </div>';
+                }elseif ($miasto == 'Świdnica')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/SW.png" style="float:right; margin-left:20px "/> <br/> <p> Świdnica – miasto w województwie dolnośląskim, siedziba powiatu świdnickiego. Miasto leży historycznie na Dolnym Śląsku, na Przedgórzu Sudeckim, nad rzeką Bystrzycą. Od 2004 r. siedziba diecezji świdnickiej.</p> </div>';
+                }elseif ($miasto == 'Bolesławiec')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/BO.png" style="float:right; margin-left:20px "/> <br/> <p> Bolesławiec – miasto w Polsce, w województwie dolnośląskim, siedziba powiatu bolesławieckiego, historycznie leżące na Dolnym Śląsku. Przez miasto przepływa rzeka Bóbr, okoliczne obszary leśne należą do Borów Dolnośląskich.</p> </div>';
+                }elseif ($miasto == 'Oleśnica')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/OL.png" style="float:right; margin-left:20px "/> <br/> <p> Oleśnica – miasto w województwie dolnośląskim, siedziba powiatu oleśnickiego, położone na lewym brzegu rzeki smródki Oleśnicy. Pod względem geograficznym Oleśnica leży na Nizinie Śląskiej na wysokości 152 m n.p.m, na Dolnym Śląsku. </p></div>';
+                }elseif ($miasto == 'Dzierżoniów')
+                {
+                    echo '<div id="herb"> <img class="img-rounded" src="herb/DZ.png" style="float:right; margin-left:20px "/> <br/> <p> Dzierżoniów – miasto w południowo-zachodniej Polsce, na Dolnym Śląsku, w województwie dolnośląskim, siedziba władz powiatu powiatu dzierżoniowskiego oraz władz gminy wiejskiej Dzierżoniów. Położone w Kotlinie Dzierżoniowskiej, nad rzeką Piławą.</p> </div>';
+                }
+
+	       /* echo '<div>Info + herb</div>';*/
+	        echo '</div>';
+        }
+
+    ?>
+    
+
+    </body>
+    
